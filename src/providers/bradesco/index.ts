@@ -3,6 +3,7 @@ import * as Promise from 'bluebird'
 import {
   always,
   applySpec,
+  assoc,
   compose,
   defaultTo,
   path,
@@ -70,7 +71,11 @@ export const translateResponseCode = (response) => {
     status: 'unknown'
   }
 
-  return defaultTo(defaultValue, prop(responseCode, responseCodeMap))
+  return assoc(
+    'issuer_response_code',
+    responseCode,
+    defaultTo(defaultValue, prop(responseCode, responseCodeMap))
+  )
 }
 
 const defaultOptions = {
